@@ -1,38 +1,37 @@
 package com.revature.reimbursement;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static org.junit.Assert.*;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
+import org.junit.Before;
+import org.junit.Test;
+import com.revature.reimbursement.App;
+public class AppTest {
+	public class EDAODummy implements EmployeeDAO{
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+		@Override
+		public void userRegistration(String firstName, String lastName, String userName, String passWord) {
+			// TODO Auto-generated method stub
+			
+		}
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+		@Override
+		public Employee getEmployee(int id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Employee getEmployee(String userName) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	}
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@Test
+	public void testVerifyUser() {}
+
 }

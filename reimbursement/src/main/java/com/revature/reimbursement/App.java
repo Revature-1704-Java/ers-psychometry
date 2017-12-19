@@ -25,7 +25,7 @@ public class App
     	}else {
     		display_user_view(current_user);
     	}
-    	System.out.println();
+    	System.out.println("Enter 1 to add a reimbursement request, anything else to terminate the program");
     	System.out.println("What would you like to do?");
     	int command=sc.nextInt();
     	process_command(command,current_user,sc);
@@ -74,7 +74,7 @@ public class App
 		
 	}
 
-	private static boolean verify_user(String username, String password) {
+	static boolean verify_user(String username, String password) {
 		Employee em=EDAO.getEmployee(username);
 		return password.equals(em.getPassWord());
 	}
