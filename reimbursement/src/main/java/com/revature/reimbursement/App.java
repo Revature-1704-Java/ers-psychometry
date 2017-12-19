@@ -3,14 +3,10 @@ package com.revature.reimbursement;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
-	public static EmployeeDAO_jdbc EDAO=new EmployeeDAO_jdbc();
-	public static ReimbursementDAO_jdbc RDAO=new ReimbursementDAO_jdbc();
+	public static EmployeeDAO EDAO=new EmployeeDAO_jdbc();
+	public static ReimbursementDAO RDAO=new ReimbursementDAO_jdbc();
     public static void main( String[] args )
     {
     	Scanner sc=new Scanner(System.in);
