@@ -42,10 +42,13 @@ public class AppTest {
 	public EmployeeDAO DAO= new EDAODummy(); 
 	@Before
 	public void setUp() throws Exception {
-		
+		DAO.userRegistration("Jason", "Todd", "redhood","robin2" );
 	}
 
 	@Test
-	public void testVerifyUser() {}
+	public void testVerifyUser() {
+		boolean test=App.verify_user("redhood", "robin2", DAO);
+		assertTrue(test);
+	}
 
 }

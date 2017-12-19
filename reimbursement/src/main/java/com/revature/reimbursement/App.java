@@ -76,7 +76,7 @@ public class App
 		
 	}
 
-	static boolean verify_user(String username, String password,EmployeeDAO EDAO) {
+	public static boolean verify_user(String username, String password,EmployeeDAO EDAO) {
 		Employee em=EDAO.getEmployee(username);
 		return password.equals(em.getPassWord());
 	}
