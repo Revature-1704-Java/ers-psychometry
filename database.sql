@@ -1,0 +1,128 @@
+--------------------------------------------------------
+--  File created - Tuesday-December-19-2017   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table EMPLOYEE
+--------------------------------------------------------
+
+  CREATE TABLE "ERS"."EMPLOYEE" 
+   (	"ID" NUMBER, 
+	"FIRSTNAME" VARCHAR2(100 BYTE), 
+	"LASTNAME" VARCHAR2(100 BYTE), 
+	"USERNAME" VARCHAR2(100 BYTE), 
+	"PASSWORD" VARCHAR2(100 BYTE), 
+	"ADMIN" VARCHAR2(1 BYTE) DEFAULT '0'
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table REIMBURSEMENT
+--------------------------------------------------------
+
+  CREATE TABLE "ERS"."REIMBURSEMENT" 
+   (	"ID" NUMBER, 
+	"EMPLOYEEID" NUMBER, 
+	"AMOUNT" NUMBER, 
+	"PURPOSE" VARCHAR2(200 BYTE), 
+	"STATUS" VARCHAR2(50 BYTE) DEFAULT 'pending'
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Sequence EMPLOYEE_PK
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "ERS"."EMPLOYEE_PK"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence REIMBURSEMENT_PK
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "ERS"."REIMBURSEMENT_PK"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+REM INSERTING into ERS.EMPLOYEE
+SET DEFINE OFF;
+Insert into ERS.EMPLOYEE (ID,FIRSTNAME,LASTNAME,USERNAME,PASSWORD,ADMIN) values (1,'Tony','Stark','ironman1','iamironman','1');
+Insert into ERS.EMPLOYEE (ID,FIRSTNAME,LASTNAME,USERNAME,PASSWORD,ADMIN) values (2,'Pepper','Potts','rescue1','iamirescue','1');
+Insert into ERS.EMPLOYEE (ID,FIRSTNAME,LASTNAME,USERNAME,PASSWORD,ADMIN) values (3,'Happy','Hogan','bodyguard1','happyhogan','0');
+Insert into ERS.EMPLOYEE (ID,FIRSTNAME,LASTNAME,USERNAME,PASSWORD,ADMIN) values (4,'Peter','Parker','intern1','iamspiderman','0');
+Insert into ERS.EMPLOYEE (ID,FIRSTNAME,LASTNAME,USERNAME,PASSWORD,ADMIN) values (5,'Natasha','Romanoff','blackwidow1','iamwidow','0');
+Insert into ERS.EMPLOYEE (ID,FIRSTNAME,LASTNAME,USERNAME,PASSWORD,ADMIN) values (6,'Steve','Rodgers','CaptainAm','supersoldier','0');
+REM INSERTING into ERS.REIMBURSEMENT
+SET DEFINE OFF;
+Insert into ERS.REIMBURSEMENT (ID,EMPLOYEEID,AMOUNT,PURPOSE,STATUS) values (6,1,200,null,'pending');
+Insert into ERS.REIMBURSEMENT (ID,EMPLOYEEID,AMOUNT,PURPOSE,STATUS) values (7,1,19.8,'I want candy','pending');
+Insert into ERS.REIMBURSEMENT (ID,EMPLOYEEID,AMOUNT,PURPOSE,STATUS) values (8,6,85.65,'test','pending');
+Insert into ERS.REIMBURSEMENT (ID,EMPLOYEEID,AMOUNT,PURPOSE,STATUS) values (4,1,200,'repulsor','pending');
+Insert into ERS.REIMBURSEMENT (ID,EMPLOYEEID,AMOUNT,PURPOSE,STATUS) values (5,1,200,' want candy','pending');
+Insert into ERS.REIMBURSEMENT (ID,EMPLOYEEID,AMOUNT,PURPOSE,STATUS) values (9,6,500.01,'nothing','pending');
+Insert into ERS.REIMBURSEMENT (ID,EMPLOYEEID,AMOUNT,PURPOSE,STATUS) values (10,1,20.01,'strippers','pending');
+Insert into ERS.REIMBURSEMENT (ID,EMPLOYEEID,AMOUNT,PURPOSE,STATUS) values (11,1,500,'500','pending');
+--------------------------------------------------------
+--  DDL for Trigger AUTO_INCREMENT_EMP
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "ERS"."AUTO_INCREMENT_EMP" 
+before insert on employee
+for each row
+begin
+   select employee_pk.nextval into :new.id from dual;
+end;
+
+/
+ALTER TRIGGER "ERS"."AUTO_INCREMENT_EMP" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger AUTO_INCREMENT_REIMBURSEMENT
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "ERS"."AUTO_INCREMENT_REIMBURSEMENT" 
+before insert on reimbursement
+for each row
+begin
+   select reimbursement_pk.nextval into :new.id from dual;
+end;
+
+/
+ALTER TRIGGER "ERS"."AUTO_INCREMENT_REIMBURSEMENT" ENABLE;
+--------------------------------------------------------
+--  Constraints for Table REIMBURSEMENT
+--------------------------------------------------------
+
+  ALTER TABLE "ERS"."REIMBURSEMENT" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "ERS"."REIMBURSEMENT" MODIFY ("AMOUNT" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table EMPLOYEE
+--------------------------------------------------------
+
+  ALTER TABLE "ERS"."EMPLOYEE" ADD UNIQUE ("USERNAME")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "ERS"."EMPLOYEE" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "ERS"."EMPLOYEE" MODIFY ("PASSWORD" NOT NULL ENABLE);
+  ALTER TABLE "ERS"."EMPLOYEE" MODIFY ("USERNAME" NOT NULL ENABLE);
+  ALTER TABLE "ERS"."EMPLOYEE" MODIFY ("LASTNAME" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Ref Constraints for Table REIMBURSEMENT
+--------------------------------------------------------
+
+  ALTER TABLE "ERS"."REIMBURSEMENT" ADD CONSTRAINT "REIMBURSEMENT_FK" FOREIGN KEY ("EMPLOYEEID")
+	  REFERENCES "ERS"."EMPLOYEE" ("ID") ON DELETE CASCADE ENABLE;
